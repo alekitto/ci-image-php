@@ -58,15 +58,18 @@ RUN echo '"mongodb","http://pecl.php.net/get/mongodb-$version.tgz","https://gith
 
 ENV PATH /home/php/.phpenv/shims:/home/php/.phpenv/bin:$PATH
 ENV PHP_5_6_VERSION 5.6.30
-ENV PHP_7_0_VERSION 7.0.19
-ENV PHP_7_1_VERSION 7.1.5
+ENV PHP_7_0_VERSION 7.0.20
+ENV PHP_7_1_VERSION 7.1.6
+ENV PHP_7_2_VERSION 7.2.0alpha1
 
 RUN CONFIGURE_OPTS="--enable-phar --with-libdir=/lib/x86_64-linux-gnu --with-gmp --enable-intl --with-pear" PHP_BUILD_INSTALL_EXTENSION="apcu=4.0.11 imagick=3.4.3 mongodb=1.2.8" phpenv install $PHP_5_6_VERSION && rm -r /tmp/php-build
 RUN CONFIGURE_OPTS="--enable-phar --with-libdir=/lib/x86_64-linux-gnu --with-gmp --enable-intl --with-pear" PHP_BUILD_INSTALL_EXTENSION="apcu=5.1.8 imagick=3.4.3 mongodb=1.2.8" phpenv install $PHP_7_0_VERSION && rm -r /tmp/php-build
 RUN CONFIGURE_OPTS="--enable-phar --with-libdir=/lib/x86_64-linux-gnu --with-gmp --enable-intl --with-pear" PHP_BUILD_INSTALL_EXTENSION="apcu=5.1.8 imagick=3.4.3 mongodb=1.2.8" phpenv install $PHP_7_1_VERSION && rm -r /tmp/php-build
+RUN CONFIGURE_OPTS="--enable-phar --with-libdir=/lib/x86_64-linux-gnu --with-gmp --enable-intl --with-pear" PHP_BUILD_INSTALL_EXTENSION="apcu=5.1.8 imagick=3.4.3 mongodb=1.2.8" phpenv install $PHP_7_2_VERSION && rm -r /tmp/php-build
 
 RUN cd /home/php/.phpenv/versions \
  && ln -s $PHP_5_6_VERSION 5.6 \
  && ln -s $PHP_7_0_VERSION 7.0 \
  && ln -s $PHP_7_1_VERSION 7.1 \
+ && ln -s $PHP_7_2_VERSION 7.2 \
  && phpenv rehash
