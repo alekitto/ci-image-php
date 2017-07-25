@@ -24,6 +24,7 @@ RUN apt-key adv --keyserver keyserver.ubuntu.com --recv E1DD270288B4E6030699E45F
       libsnmp-dev libtidy-dev libxslt-dev libgmp10 \
       libgmp-dev libmagickwand-dev mysql-client-5.7 \
       mongodb-org-shell mongodb-org-tools sudo autoconf \
+      software-properties-common \
  && DEBIAN_FRONTEND=noninteractive apt-get build-dep -y php7.0 \
  && rm -rf /var/lib/apt/lists/*
 RUN ln -s /usr/include/x86_64-linux-gnu/gmp.h /usr/include/gmp.h
@@ -57,16 +58,16 @@ RUN mkdir /home/php/.phpenv/plugins; \
 RUN echo '"mongodb","http://pecl.php.net/get/mongodb-$version.tgz","https://github.com/mongodb/mongo-php-driver.git",,,"extension",' >> /home/php/.phpenv/plugins/php-build/share/php-build/extension/definition
 
 ENV PATH /home/php/.phpenv/shims:/home/php/.phpenv/bin:$PATH
-ENV PHP_5_6_VERSION 5.6.31
 ENV PHP_7_0_VERSION 7.0.21
 ENV PHP_7_1_VERSION 7.1.7
+ENV PHP_7_2_VERSION 7.2.0beta1
 
-RUN CONFIGURE_OPTS="--enable-phar --with-libdir=/lib/x86_64-linux-gnu --with-gmp --enable-intl --with-pear" PHP_BUILD_INSTALL_EXTENSION="apcu=4.0.11 imagick=3.4.3 mongodb=1.2.8" phpenv install $PHP_5_6_VERSION && rm -r /tmp/php-build
 RUN CONFIGURE_OPTS="--enable-phar --with-libdir=/lib/x86_64-linux-gnu --with-gmp --enable-intl --with-pear" PHP_BUILD_INSTALL_EXTENSION="apcu=5.1.8 imagick=3.4.3 mongodb=1.2.8" phpenv install $PHP_7_0_VERSION && rm -r /tmp/php-build
 RUN CONFIGURE_OPTS="--enable-phar --with-libdir=/lib/x86_64-linux-gnu --with-gmp --enable-intl --with-pear" PHP_BUILD_INSTALL_EXTENSION="apcu=5.1.8 imagick=3.4.3 mongodb=1.2.8" phpenv install $PHP_7_1_VERSION && rm -r /tmp/php-build
+RUN CONFIGURE_OPTS="--enable-phar --with-libdir=/lib/x86_64-linux-gnu --with-gmp --enable-intl --with-pear" PHP_BUILD_INSTALL_EXTENSION="apcu=5.1.8 imagick=3.4.3 mongodb=1.2.8" phpenv install $PHP_7_2_VERSION && rm -r /tmp/php-build
 
 RUN cd /home/php/.phpenv/versions \
- && ln -s $PHP_5_6_VERSION 5.6 \
  && ln -s $PHP_7_0_VERSION 7.0 \
  && ln -s $PHP_7_1_VERSION 7.1 \
+ && ln -s $PHP_7_2_VERSION 7.2 \
  && phpenv rehash
