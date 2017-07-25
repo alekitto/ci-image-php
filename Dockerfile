@@ -24,7 +24,7 @@ RUN apt-key adv --keyserver keyserver.ubuntu.com --recv E1DD270288B4E6030699E45F
       libsnmp-dev libtidy-dev libxslt-dev libgmp10 \
       libgmp-dev libmagickwand-dev mysql-client-5.7 \
       mongodb-org-shell mongodb-org-tools sudo autoconf \
-      software-properties-common \
+      software-properties-common rsync \
  && DEBIAN_FRONTEND=noninteractive apt-get build-dep -y php7.0 \
  && rm -rf /var/lib/apt/lists/*
 RUN ln -s /usr/include/x86_64-linux-gnu/gmp.h /usr/include/gmp.h
