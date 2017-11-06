@@ -58,9 +58,9 @@ RUN mkdir /home/php/.phpenv/plugins; \
 RUN echo '"mongodb","http://pecl.php.net/get/mongodb-$version.tgz","https://github.com/mongodb/mongo-php-driver.git",,,"extension",' >> /home/php/.phpenv/plugins/php-build/share/php-build/extension/definition
 
 ENV PATH /home/php/.phpenv/shims:/home/php/.phpenv/bin:$PATH
-ENV PHP_7_0_VERSION 7.0.21
-ENV PHP_7_1_VERSION 7.1.7
-ENV PHP_7_2_VERSION 7.2.0RC2
+ENV PHP_7_0_VERSION 7.0.25
+ENV PHP_7_1_VERSION 7.1.11
+ENV PHP_7_2_VERSION 7.2.0RC5
 
 RUN CONFIGURE_OPTS="--enable-phar --with-libdir=/lib/x86_64-linux-gnu --with-gmp --enable-intl --with-pear" PHP_BUILD_INSTALL_EXTENSION="apcu=5.1.8 imagick=3.4.3 mongodb=1.3.0" phpenv install $PHP_7_0_VERSION && rm -r /tmp/php-build
 RUN CONFIGURE_OPTS="--enable-phar --with-libdir=/lib/x86_64-linux-gnu --with-gmp --enable-intl --with-pear" PHP_BUILD_INSTALL_EXTENSION="apcu=5.1.8 imagick=3.4.3 mongodb=1.3.0" phpenv install $PHP_7_1_VERSION && rm -r /tmp/php-build
